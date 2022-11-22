@@ -556,3 +556,96 @@ Symfony\Bridge\Twig\Mime\TemplatedEmail Object
     [body:Symfony\Component\Mime\Message:private] => 
     [message:Symfony\Component\Mime\RawMessage:private] => 
 )
+Symfony\Bridge\Twig\Mime\TemplatedEmail Object
+(
+    [htmlTemplate:Symfony\Bridge\Twig\Mime\TemplatedEmail:private] => main/email/security/confirmation_email.html.twig
+    [textTemplate:Symfony\Bridge\Twig\Mime\TemplatedEmail:private] => 
+    [context:Symfony\Bridge\Twig\Mime\TemplatedEmail:private] => Array
+        (
+            [signedUrl] => http://simfony.local/public/verify/email?expires=1668536441&id=27&signature=B39kJ0iGBkoThzGd4W0OZKeF7ujt4BXJ1%2BF4ChtOWSk%3D&token=g5Pxmc07XfdL9GYy4%2FfqCUqD3aLVhA3SFWNxREstQHA%3D
+            [expiresAtMessageKey] => %count% hour|%count% hours
+            [expiresAtMessageData] => Array
+                (
+                    [%count%] => 1
+                )
+
+        )
+
+    [text:Symfony\Component\Mime\Email:private] => 
+    [textCharset:Symfony\Component\Mime\Email:private] => 
+    [html:Symfony\Component\Mime\Email:private] => 
+    [htmlCharset:Symfony\Component\Mime\Email:private] => 
+    [attachments:Symfony\Component\Mime\Email:private] => Array
+        (
+        )
+
+    [cachedBody:Symfony\Component\Mime\Email:private] => 
+    [headers:Symfony\Component\Mime\Message:private] => Symfony\Component\Mime\Header\Headers Object
+        (
+            [headers:Symfony\Component\Mime\Header\Headers:private] => Array
+                (
+                    [from] => Array
+                        (
+                            [0] => Symfony\Component\Mime\Header\MailboxListHeader Object
+                                (
+                                    [addresses:Symfony\Component\Mime\Header\MailboxListHeader:private] => Array
+                                        (
+                                            [0] => Symfony\Component\Mime\Address Object
+                                                (
+                                                    [address:Symfony\Component\Mime\Address:private] => glebushkauvarov@yandex.ru
+                                                    [name:Symfony\Component\Mime\Address:private] => Robot
+                                                )
+
+                                        )
+
+                                    [name:Symfony\Component\Mime\Header\AbstractHeader:private] => From
+                                    [lineLength:Symfony\Component\Mime\Header\AbstractHeader:private] => 76
+                                    [lang:Symfony\Component\Mime\Header\AbstractHeader:private] => 
+                                    [charset:Symfony\Component\Mime\Header\AbstractHeader:private] => utf-8
+                                )
+
+                        )
+
+                    [to] => Array
+                        (
+                            [0] => Symfony\Component\Mime\Header\MailboxListHeader Object
+                                (
+                                    [addresses:Symfony\Component\Mime\Header\MailboxListHeader:private] => Array
+                                        (
+                                            [0] => Symfony\Component\Mime\Address Object
+                                                (
+                                                    [address:Symfony\Component\Mime\Address:private] => dgfgd234@test.com
+                                                    [name:Symfony\Component\Mime\Address:private] => 
+                                                )
+
+                                        )
+
+                                    [name:Symfony\Component\Mime\Header\AbstractHeader:private] => To
+                                    [lineLength:Symfony\Component\Mime\Header\AbstractHeader:private] => 76
+                                    [lang:Symfony\Component\Mime\Header\AbstractHeader:private] => 
+                                    [charset:Symfony\Component\Mime\Header\AbstractHeader:private] => utf-8
+                                )
+
+                        )
+
+                    [subject] => Array
+                        (
+                            [0] => Symfony\Component\Mime\Header\UnstructuredHeader Object
+                                (
+                                    [value:Symfony\Component\Mime\Header\UnstructuredHeader:private] => Please Confirm your Email
+                                    [name:Symfony\Component\Mime\Header\AbstractHeader:private] => Subject
+                                    [lineLength:Symfony\Component\Mime\Header\AbstractHeader:private] => 76
+                                    [lang:Symfony\Component\Mime\Header\AbstractHeader:private] => 
+                                    [charset:Symfony\Component\Mime\Header\AbstractHeader:private] => utf-8
+                                )
+
+                        )
+
+                )
+
+            [lineLength:Symfony\Component\Mime\Header\Headers:private] => 76
+        )
+
+    [body:Symfony\Component\Mime\Message:private] => 
+    [message:Symfony\Component\Mime\RawMessage:private] => 
+)

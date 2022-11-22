@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Product;
 use App\Form\EditProductFormType;
 use App\Form\Handler\ProductFormHandler;
+use App\Form\Model\EditProductModel;
 use App\Repository\ProductRepository;
 use App\Utils\Manager\ProductManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,20 +39,23 @@ class ProductController extends AbstractController
     public function edit(Request $request, ProductFormHandler $productFormHandler ,Product $product = null ): Response
     {
 
-        if(!$product){
-            $product = new Product();
-        }
-
-        $form = $this->createForm(EditProductFormType::class, $product);
+        $editProductModel = EditProductModel::makeFromProduct($product);
+        $form = $this->createForm(EditProductFormType::class, $editProductModel);
         $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $product = $productFormHandler->proccesEditForm($editProductModel, $form);
 
-        if($form->isSubmitted() && $form->isValid()){
-           $product = $productFormHandler->proccesEditForm($product, $form);
-            return $this->redirectToRoute('admin_product_edit',['id' => $product->getId()]);
+            $this->addFlash('success','Ваши изменения были сохранены!');
+
+            return $this->redirectToRoute('admin_product_edit', ['id' => $product->getId()]);
         }
-        $images = $product->getProductImages() ?  $product->getProductImages()->getValues() : [];
-        return $this->render('admin/product/edit.html.twig',[
-            'images'=>$images,
+        if($form->isSubmitted() && !$form->isValid()){
+            $this->addFlash('warning','Неправильно введённые данные');
+        }
+
+        $images = $product ? $product->getProductImages()->getValues() : [];
+        return $this->render('admin/product/edit.html.twig', [
+            'images' => $images,
             'product' => $product,
             'form' => $form->createView()
         ]);
@@ -67,6 +71,7 @@ class ProductController extends AbstractController
     public function delete(Product $product, ProductManager $productManager): Response
     {
         $productManager->remove($product);
+        $this->addFlash('warning','Продукт был успешно удалён');
          return $this->redirectToRoute('admin_product_list');
     }
 }
