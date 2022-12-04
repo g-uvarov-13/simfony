@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
-use App\Form\EditProductFormType;
+use App\Form\Admin\EditProductFormType;
 use App\Form\Handler\ProductFormHandler;
 use App\Form\Model\EditProductModel;
 use App\Repository\ProductRepository;
@@ -12,7 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormTypeInterface;
+
 
 /**
  * @Route("/admin/product", name="admin_product_")
@@ -22,6 +23,8 @@ class ProductController extends AbstractController
 {
     /**
      * @Route("/list", name="list")
+     * @param ProductRepository $productRepository
+     * @return Response
      */
     public function list(ProductRepository $productRepository): Response
     {
@@ -35,12 +38,16 @@ class ProductController extends AbstractController
     /**
      * @Route("/edit/{id}", name="edit")
      * @Route("/add", name="add")
+     * @param Request $request
+     * @param ProductFormHandler $productFormHandler
+     * @param Product|null $product
+     * @return Response
      */
     public function edit(Request $request, ProductFormHandler $productFormHandler ,Product $product = null ): Response
     {
 
         $editProductModel = EditProductModel::makeFromProduct($product);
-        $form = $this->createForm(EditProductFormType::class, $editProductModel);
+        $form = $this->createForm(form::class, $editProductModel);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $product = $productFormHandler->proccesEditForm($editProductModel, $form);

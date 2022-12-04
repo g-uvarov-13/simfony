@@ -29,7 +29,7 @@
                     {% for product in products %}
                         <tr>
                             <td>{{ product.id }}</td>
-                            <td>{#{% if product.category %}{{ product.category.title }}{% endif %}#}</td>
+                            <td>{% if product.category %}{{ product.category.title }}{% endif %}</td>
                             <td>{{ product.title }}</td>
                             <td>{{ product.price|format_currency('RUB') }}</td>
                             <td>{{ product.quantity }}</td>
@@ -44,7 +44,7 @@
                                     >
                                 {% endif %}
                             </td>
-                            <td></td>
+                            <td>{{ product.isPublished }}</td>
                             <td>
                                 <i class="fas fa-check fa-sm" style="color: {% if product.isPublished %}green{% else %}lightgray{% endif %};"></i></td>
                             <td>
