@@ -26,7 +26,7 @@ class EditProductFormType extends AbstractType
                 'label' => 'Title (from class)',
                 'required' => true,
                 'attr' =>[
-                  'class' => 'form-control',
+                    'class' => 'form-control',
                 ],
                 'constraints' => [
                     new NotBlank([],'NADO ZAPOLNIT')
@@ -68,7 +68,7 @@ class EditProductFormType extends AbstractType
                     'class' => 'form-control',
                 ]
             ])
-            ->add(' ', FileType::class,[
+            ->add('newImage', FileType::class,[
                 'label' => 'Choose New Image',
                 //'required' => true,
                 'attr' =>[
