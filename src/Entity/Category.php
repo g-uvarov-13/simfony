@@ -9,23 +9,21 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
- * @ORM\Entity(repositoryClass=CategoryRepository::class)
  * @ApiResource(
  *     collectionOperations={
- *     "get"={
- *      "normalization_context"={"groups"="category:list"}
- *     }
+ *          "get"={
+ *              "normalization_context"={"groups"="category:list"}
+ *          },
  *     },
  *     itemOperations={
- *        "get"={
- *      "normalization_context"={"groups"="category:item"}
- *     },
- *
+ *          "get"={
+ *              "normalization_context"={"groups"="category:item"}
+ *          },
  *     }
  * )
+ * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
 class Category
 {
@@ -33,14 +31,15 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"category:list","category:item","product:list","product:item"})
      *
+     * @Groups({"category:list", "category:item", "product:list", "product:item", "order:item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"category:list","category:item","product:list","product:item"})
+     *
+     * @Groups({"category:list", "category:item", "product:list", "product:item", "order:item"})
      */
     private $title;
 
@@ -96,7 +95,7 @@ class Category
     }
 
     /**
-     * @return Collection<int, Product>
+     * @return Collection|Product[]
      */
     public function getProducts(): Collection
     {
@@ -125,7 +124,7 @@ class Category
         return $this;
     }
 
-    public function isIsDeleted(): ?bool
+    public function getIsDeleted(): ?bool
     {
         return $this->isDeleted;
     }

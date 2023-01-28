@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 
 use App\Entity\Order;
+use App\Entity\OrderProduct;
 use App\Entity\StaticStorage\OrderStaticStorage;
 use App\Form\Ad\EditOrderFormType;
 use App\Form\Admin\EditCategoryFormType;
@@ -60,8 +61,32 @@ class OrderController extends AbstractController
         if($form->isSubmitted() && !$form->isValid()){
             $this->addFlash('warning','Неправильно введённые данные');
         }
+
+        $orderProducts = [];
+      //  /** @var OrderProduct $product */
+//        foreach ($order->getOrderProducts()->getValues() as $product) {
+//            $orderProducts[] = [
+//                'id' => $product->getId(),
+//                'product' => [
+//                    'id' => $product->getProduct()->getId() ,
+//                    'title' => $product->getProduct()->getTitle(),
+//                    'price' => $product->getProduct()->getPrice(),
+//                    'quantity' => $product->getProduct()->getQuantity(),
+//                    'category' => [
+//                       'id' => $product->getProduct()->getCategory()->getId(),
+//                       'title' => $product->getProduct()->getCategory()->getTitle(),
+//                    ],
+//
+//                ],
+//
+//                'quantity' => $product->getQuantity(),
+//                'pricePerOne' => $product->getPricePerOne()
+//            ];
+//        }
+
         return $this->render('admin/order/edit.html.twig',[
             'order' => $order,
+            'orderProducts' =>$orderProducts,
             'form' =>$form->createView()
         ]);
     }

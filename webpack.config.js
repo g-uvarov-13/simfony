@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('section-main', './assets/section-main.js')
     .addEntry('section-admin', './assets/section-admin.js')
+    .addEntry('appAdminOrder', './assets/js/section/admin/admin-order/app.js')
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     //.enableStimulusBridge('./assets/controllers.json')
 
@@ -31,6 +32,8 @@ Encore
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
+
+
 
     .copyFiles({
         from: './assets/images',
@@ -47,6 +50,7 @@ Encore
     .cleanupOutputBeforeBuild()
     // enables Sass/SCSS support
     .enableSassLoader()
+    .enableVueLoader()
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)

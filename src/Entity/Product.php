@@ -14,7 +14,7 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-/**
+
 /**
  * @ApiResource(
  *     collectionOperations={
@@ -44,7 +44,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     },
  *     paginationEnabled=true
  * )
- *  * @ApiFilter(BooleanFilter::class, properties={"isPublished"})
+ * @ApiFilter(BooleanFilter::class, properties={"isPublished"})
  * @ApiFilter(SearchFilter::class, properties={
  *      "category": "exact"
  *     })
@@ -57,33 +57,37 @@ class Product
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      *
-     * @Groups({"product:list","product:item"})
      * @ApiProperty(identifier=false)
-     *
+     * @Groups({"product:list", "order:item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="uuid")
-     * @Groups({"product:list","product:item"})
+     *
+     * @ApiProperty(identifier=true)
+     * @Groups({"product:list", "product:item", "order:item"})
      */
     private $uuid;
+
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"product:list","product:list:write","product:item","product:item:write"})
-     * @ApiProperty(identifier=true)
+     *
+     * @Groups({"product:list", "product:item", "product:list:write", "product:item:write", "order:item"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="decimal", precision=6, scale=2)
-     * @Groups({"product:list","product:list:write","product:item","product:item:write"})
+     *
+     * @Groups({"product:list", "product:item", "product:list:write", "product:item:write", "order:item"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"product:list","product:list:write","product:item","product:item:write"})
+     *
+     * @Groups({"product:list", "product:item", "product:list:write", "product:item:write", "order:item"})
      */
     private $quantity;
 
@@ -114,13 +118,14 @@ class Product
 
     /**
      * @Gedmo\Slug(fields={"title"})
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=128, unique=true, nullable=true)
      */
     private $slug;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
-     * @Groups({"product:list","product:list:write"})
+     *
+     * @Groups({"product:list", "product:item", "product:list:write", "product:item:write", "order:item"})
      */
     private $category;
 
@@ -215,7 +220,7 @@ class Product
         return $this;
     }
 
-    public function isIsPublished(): ?bool
+    public function getIsPublished(): ?bool
     {
         return $this->isPublished;
     }
@@ -227,7 +232,7 @@ class Product
         return $this;
     }
 
-    public function isIsDeleted(): ?bool
+    public function getIsDeleted(): ?bool
     {
         return $this->isDeleted;
     }
@@ -240,7 +245,7 @@ class Product
     }
 
     /**
-     * @return Collection<int, ProductImage>
+     * @return Collection|ProductImage[]
      */
     public function getProductImages(): Collection
     {
@@ -294,7 +299,7 @@ class Product
     }
 
     /**
-     * @return Collection<int, CartProduct>
+     * @return Collection|CartProduct[]
      */
     public function getCartProducts(): Collection
     {
@@ -324,7 +329,7 @@ class Product
     }
 
     /**
-     * @return Collection<int, OrderProduct>
+     * @return Collection|OrderProduct[]
      */
     public function getOrderProducts(): Collection
     {

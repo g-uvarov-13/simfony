@@ -34,7 +34,12 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/edit/{id}", name="edit")
+     * @Route("/edit", name="edit_blank")
      * @Route("/add", name="add")
+     * @param Request $request
+     * @param ProductFormHandler $productFormHandler
+     * @param Product|null $product
+     * @return Response
      */
     public function edit(Request $request, ProductFormHandler $productFormHandler ,Product $product = null ): Response
     {
